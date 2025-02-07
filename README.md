@@ -1,4 +1,4 @@
-# 06 - Symfony - UI/UX et assets
+# Symfony - EFREI - Examen
 
 ## Base de données
 
@@ -14,7 +14,7 @@
 ### 1 - Récupération du projet
 
 Dans un terminal :
-```zsh
+```shell
 git clone git@github.com:El-Profesor/EFREI-Municipal-Library.git <nom_de_dossier>
 ```
 
@@ -23,7 +23,7 @@ git clone git@github.com:El-Profesor/EFREI-Municipal-Library.git <nom_de_dossier
 ### 2 - Installation des dépendances
 
 Dans un terminal, depuis le dossier `<nom_de_dossier>` :
-```zsh
+```shell
 composer install
 ```
 
@@ -39,7 +39,7 @@ composer install
 ### 4 - Création de la base de données
 
 Dans un terminal :
-```zsh
+```shell
 php bin/console doctrine:database:drop --force --if-exists
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:create 
@@ -48,14 +48,14 @@ php bin/console doctrine:schema:create
 ### 5 - Insertion d'un jeu de données en base de données
 
 Dans un terminal :
-```zsh
+```shell
 php bin/console doctrine:fixtures:load
 ```
 
 ### 6 - Vérification du bon fonctionnement de l'application
 
 Dans un terminal :
-```zsh
+```shell
 symfony server:start
 ```
 
