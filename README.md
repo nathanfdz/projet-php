@@ -1,5 +1,10 @@
 # Symfony - EFREI - Examen
 
+## Pré-requis
+
+- Version **PHP 8.2** minimum.
+- Un serveur de base de données de type **MySQL** ou **MariaDB**.
+
 ## Base de données
 
 ![Base de données "Municipal Library"](stuff/db/municipal_library.png)
