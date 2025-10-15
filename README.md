@@ -17,9 +17,10 @@ Ajout remember_me dans login.html.twig
 
 ## *Cookie* du mode affichage
 capture illustrant le cookie stocké pour le mode clair/sombre.
-<img width="945" height="450" alt="image" src="https://github.com/user-attachments/assets/b9633063-0cf1-48e7-9819-256cdf45e178" />
-<img width="945" height="451" alt="image" src="https://github.com/user-attachments/assets/ea7eb8d1-ec29-4bd5-aa4c-0b8024cc2d92" />
-<img width="945" height="441" alt="image" src="https://github.com/user-attachments/assets/ac761fde-0dfe-4dfb-897d-f163fb6e1c67" />
+<img width="1905" height="909" alt="image" src="https://github.com/user-attachments/assets/490deca8-c9d7-4952-a626-d69975685e1a" />
+<img width="1894" height="907" alt="image" src="https://github.com/user-attachments/assets/ed58caa2-7389-416c-95bb-d2614a1db771" />
+<img width="1915" height="903" alt="image" src="https://github.com/user-attachments/assets/445aac4e-93f3-4df8-9829-f4249a59aed2" />
+
 
 
 ## Protection CSRF
