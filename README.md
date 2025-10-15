@@ -14,11 +14,13 @@ Cette configuration utilise le "remember_me" cookie :
 Ajout remember_me dans login.html.twig
 
 
-  > Exemple : capture montrant qu’un utilisateur ne reste pas connecté plus de 48h.
 
 ## *Cookie* du mode affichage
-- Screenshot : [à insérer]  
-  > Exemple : capture illustrant le cookie stocké pour le mode clair/sombre.
+capture illustrant le cookie stocké pour le mode clair/sombre.
+<img width="945" height="450" alt="image" src="https://github.com/user-attachments/assets/b9633063-0cf1-48e7-9819-256cdf45e178" />
+<img width="945" height="451" alt="image" src="https://github.com/user-attachments/assets/ea7eb8d1-ec29-4bd5-aa4c-0b8024cc2d92" />
+<img width="945" height="441" alt="image" src="https://github.com/user-attachments/assets/ac761fde-0dfe-4dfb-897d-f163fb6e1c67" />
+
 
 ## Protection CSRF
 - Screenshot : [à insérer]  
