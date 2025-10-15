@@ -31,9 +31,7 @@ security:
         enable_csrf: true
       logout:
         path: app_logout
-        # target: app_home (décommenter si tu veux rediriger après logout)
 
-      # Durée maximale de la session : 48 heures (48h × 3600s = 172800 secondes)
       remember_me:
         secret: '%kernel.secret%'
         lifetime: 172800  # durée en secondes

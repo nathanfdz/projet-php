@@ -28,7 +28,7 @@
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
 
-        <!-- ✅ Activation du "Se souvenir de moi" -->
+        <!-- Se souvenir de moi -->
         <div class="checkbox mb-3">
             <input type="checkbox" name="_remember_me" id="_remember_me">
             <label for="_remember_me">Se souvenir de moi (48h)</label>
@@ -37,5 +37,9 @@
         <button class="btn btn-lg btn-primary" type="submit">
             Se connecter
         </button>
+        <a class="toggle-theme"
+           href="{{ path('app_theme_set', {'theme': app.request.cookies.get('theme') == 'dark' ? 'light' : 'dark'}) }}">
+            Passer en mode {{ app.request.cookies.get('theme') == 'dark' ? 'clair' : 'sombre' }}
+        </a>
     </form>
 {% endblock %}

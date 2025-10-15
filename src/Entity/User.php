@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -80,12 +81,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\LessThanOrEqual("today", message: "La date de naissance doit être antérieure à aujourd’hui.")]
     private ?\DateTimeInterface $birthDate = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotNull(message: "La date de création doit être définie.")]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotNull(message: "La date de mise à jour doit être définie.")]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Book::class)]
@@ -95,6 +94,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->books = new ArrayCollection();
     }
+
+    // -------------------------
+    // Getters & Setters
+    // -------------------------
 
     public function getId(): ?int
     {
@@ -109,7 +112,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -121,23 +123,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // Garantir que tout utilisateur a au moins ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -149,7 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -161,7 +158,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(string $firstName): static
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -173,7 +169,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -185,7 +180,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setZipCode(string $zipCode): static
     {
         $this->zipCode = $zipCode;
-
         return $this;
     }
 
@@ -197,7 +191,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBirthDate(\DateTimeInterface $birthDate): static
     {
         $this->birthDate = $birthDate;
-
         return $this;
     }
 
@@ -206,10 +199,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(?\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -218,12 +210,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
+
+    // -------------------------
+    // Gestion automatique des dates
+    // -------------------------
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    // -------------------------
+    // Gestion des livres
+    // -------------------------
 
     /**
      * @return Collection<int, Book>
@@ -239,7 +251,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->books->add($book);
             $book->setUser($this);
         }
-
         return $this;
     }
 
@@ -250,9 +261,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $book->setUser(null);
             }
         }
-
         return $this;
     }
+
+    // -------------------------
+    // UserInterface
+    // -------------------------
 
     public function getUserIdentifier(): string
     {
@@ -266,7 +280,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getSalt(): ?string
     {
-        // Pas nécessaire quand on utilise les algorithmes modernes (bcrypt, sodium)
-        return null;
+        return null; // Pas nécessaire avec bcrypt ou sodium
     }
 }
