@@ -24,8 +24,8 @@ capture illustrant le cookie stocké pour le mode clair/sombre.
 
 
 ## Protection CSRF
-- Screenshot : [à insérer]  
-  > Exemple : capture du formulaire de login montrant le champ `_csrf_token`.
+capture du formulaire de login montrant le champ `_csrf_token`.
+<img width="1920" height="577" alt="image" src="https://github.com/user-attachments/assets/553fe859-588f-499a-a165-1ec9bcf85679" />
 
 ## Vulnérabilités des dépendances
 - Utilisation de `composer audit` pour vérifier les paquets installés.  
