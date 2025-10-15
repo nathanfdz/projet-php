@@ -36,6 +36,3 @@ Au cours du projet, plusieurs difficultés ont été rencontrées et résolues. 
 
 ## Bilan des acquis
 Ce projet m’a permis de mieux comprendre la mise en place d’une authentification sécurisée et la protection contre les attaques CSRF. J’ai appris à gérer les rôles et leur hiérarchie pour limiter l’accès aux pages sensibles. La personnalisation des pages d’erreur HTTP m’a aussi aidé à améliorer l’expérience utilisateur tout en renforçant la sécurité. J’ai gagné en maîtrise du framework Symfony, notamment sur les fichiers security.yaml, les formulaires UserType, le SecurityController, Twig et les commandes make:*. Enfin, j’ai découvert comment auditer les dépendances avec Composer afin de vérifier les vulnérabilités et sécuriser davantage l’application.
-
-## Remarques complémentaires
-- Le projet a permis de comprendre l’intégration de la sécurité dans Symfony et l’importance de la bonne configuration des rôles et des firewalls.
