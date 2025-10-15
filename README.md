@@ -3,7 +3,17 @@
 # Sécurisation de l’application *« Bibliothèque »*
 
 ## Authentification 48h
-- Screenshot : [à insérer]  
+
+<img width="1218" height="633" alt="image" src="https://github.com/user-attachments/assets/a5e0c013-10b2-4f7c-9ca0-7dbd5615401b" />
+Cette configuration utilise le "remember_me" cookie :
+•	lifetime: 172800 limite la validité à 48 heures.
+•	L’utilisateur devra se reconnecter après cette durée.
+
+
+<img width="1525" height="631" alt="image" src="https://github.com/user-attachments/assets/a710d63e-b506-40de-a8e8-34fe8c7b8ab4" />
+Ajout remember_me dans login.html.twig
+
+
   > Exemple : capture montrant qu’un utilisateur ne reste pas connecté plus de 48h.
 
 ## *Cookie* du mode affichage
