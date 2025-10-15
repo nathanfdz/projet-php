@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Erreur 404 - Page introuvable{% endblock %}
+{% block body %}
+    <h1>404 - Oups 😕</h1>
+    <p>La page demandée n’existe pas ou a été supprimée.</p>
+    <a href="{{ path('app_login') }}">Retour à l'accueil</a>
+{% endblock %}

@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,33 +20,72 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'adresse e-mail est obligatoire.")]
+    #[Assert\Email(message: "L'adresse e-mail '{{ value }}' n'est pas valide.")]
+    #[Assert\Length(
+        max: 180,
+        maxMessage: "L'adresse e-mail ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire.")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères."
+    )]
     private ?string $password = null;
 
     #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le nom doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire.")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le prénom doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le prénom ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "L’adresse est obligatoire.")]
+    #[Assert\Length(
+        max: 150,
+        maxMessage: "L’adresse ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
+    #[Assert\NotBlank(message: "Le code postal est obligatoire.")]
+    #[Assert\Regex(
+        pattern: '/^\d{5}$/',
+        message: "Le code postal doit contenir exactement 5 chiffres."
+    )]
     private ?string $zipCode = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: "La date de naissance est obligatoire.")]
+    #[Assert\LessThanOrEqual("today", message: "La date de naissance doit être antérieure à aujourd’hui.")]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date de création doit être définie.")]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date de mise à jour doit être définie.")]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Book::class)]
@@ -85,7 +127,11 @@ class User
 
     public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // Garantir que tout utilisateur a au moins ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
@@ -200,12 +246,27 @@ class User
     public function removeBook(Book $book): static
     {
         if ($this->books->removeElement($book)) {
-            // set the owning side to null (unless already changed)
             if ($book->getUser() === $this) {
                 $book->setUser(null);
             }
         }
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Si tu stockes des données temporaires sensibles, efface-les ici.
+    }
+
+    public function getSalt(): ?string
+    {
+        // Pas nécessaire quand on utilise les algorithmes modernes (bcrypt, sodium)
+        return null;
     }
 }

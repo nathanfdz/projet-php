@@ -8,4 +8,9 @@
     {{ include('book/_form.html.twig') }}
 
     <a href="{{ path('app_book_index') }}">back to list</a>
+    <a class="toggle-theme"
+       href="{{ path('app_theme_set', {'theme': app.request.cookies.get('theme') == 'dark' ? 'light' : 'dark'}) }}">
+        Passer en mode {{ app.request.cookies.get('theme') == 'dark' ? 'clair' : 'sombre' }}
+    </a>
+
 {% endblock %}

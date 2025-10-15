@@ -1,3 +1,27 @@
-body {
-    background-color: skyblue;
+/* ----- MODE CLAIR / SOMBRE ----- */
+body.light {
+    background-color: #f8f9fa;
+    color: #212529;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #f8f9fa;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+    color: inherit;
+}
+
+.toggle-theme {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
 }

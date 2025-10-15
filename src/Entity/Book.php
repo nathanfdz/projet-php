@@ -17,33 +17,68 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 13)]
+    #[Assert\NotBlank(message: "Le numéro ISBN est obligatoire.")]
+    #[Assert\Regex(
+        pattern: '/^\d{10}(\d{3})?$/',
+        message: "Le numéro ISBN doit contenir 10 ou 13 chiffres."
+    )]
     private ?string $isbn = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le titre du livre est obligatoire.")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le titre doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Le résumé ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 10,
+        minMessage: "Le résumé doit comporter au moins {{ limit }} caractères."
+    )]
     private ?string $summary = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "L’année de publication est obligatoire.")]
+    #[Assert\Range(
+        notInRangeMessage: "L’année de publication doit être comprise entre {{ min }} et {{ max }}.",
+        min: 1450,
+        max: 2100
+    )]
     private ?int $publicationYear = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\Type(\DateTimeInterface::class)]
     private ?\DateTimeInterface $issueDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date de création doit être définie.")]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "La date de mise à jour doit être définie.")]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
+    #[Assert\NotNull(message: "Un livre doit être associé à un utilisateur.")]
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'books')]
+    #[Assert\Count(
+        min: 1,
+        minMessage: "Un livre doit avoir au moins un genre."
+    )]
     private Collection $genres;
 
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'books')]
+    #[Assert\Count(
+        min: 1,
+        minMessage: "Un livre doit avoir au moins un auteur."
+    )]
     private Collection $authors;
 
     #[ORM\OneToOne(mappedBy: 'book', cascade: ['persist', 'remove'])]

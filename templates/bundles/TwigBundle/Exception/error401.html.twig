@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block title %}Erreur 401 - Non authentifié{% endblock %}
+{% block body %}
+    <h1>401 - Vous devez être connecté pour accéder à cette page 🔒</h1>
+    <a href="{{ path('app_login') }}">Se connecter</a>
+{% endblock %}

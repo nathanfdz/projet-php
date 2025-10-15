@@ -1,4 +1,12 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.title) }}
+    {{ form_row(form.isbn) }}
+    {{ form_row(form.summary) }}
+    {{ form_row(form.publicationYear) }}
+    {{ form_row(form.issueDate) }}
+    {{ form_row(form.user) }}
+    {{ form_row(form.authors) }}
+    {{ form_row(form.genres) }}
+
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
