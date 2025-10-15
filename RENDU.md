@@ -32,18 +32,10 @@ capture du formulaire de login montrant le champ `_csrf_token`.
 - Identification de 6 vulnérabilités sur les dépendances, permettant de mettre à jour ou surveiller les paquets concernés.  
 
 ## Difficultés rencontrées et solutions
-- **Gestion des entités et migrations** : suppression sécurisée de l’ancienne entité `SecuredUser`.  
-- **Authentification et routes** : régénération du `SecurityController` et vérification des routes et tokens CSRF.  
-- **Contrôle d’accès et rôles** : configuration de la hiérarchie dans `security.yaml`, utilisation de `isGranted()` et `#[IsGranted]`.  
-- **Pages d’erreur HTTP** : création des templates spécifiques dans `templates/bundles/TwigBundle/Exception`.  
-- **Cookies et UX** : création d’un cookie pour le choix du mode clair/sombre et gestion via JS.
+Au cours du projet, plusieurs difficultés ont été rencontrées et résolues. La gestion des entités et des migrations a nécessité la suppression sécurisée de l’ancienne entité SecuredUser pour éviter les conflits dans la base de données. L’authentification et la configuration des routes ont ensuite été ajustées en régénérant le SecurityController et en vérifiant le bon fonctionnement des routes et des tokens CSRF. Le contrôle d’accès et la gestion des rôles ont été mis en place grâce à la configuration de la hiérarchie dans le fichier security.yaml, ainsi qu’à l’utilisation des fonctions isGranted() et des attributs #[IsGranted] pour restreindre l’accès selon les rôles. Les pages d’erreur HTTP ont été personnalisées en créant des templates dédiés dans templates/bundles/TwigBundle/Exception, afin d’améliorer la clarté et la sécurité des messages d’erreur. Enfin, un cookie a été implémenté pour permettre à l’utilisateur de conserver son choix de mode d’affichage (clair ou sombre), géré dynamiquement via JavaScript pour une meilleure expérience utilisateur.
 
 ## Bilan des acquis
-- Mise en place d’une authentification sécurisée et protection CSRF.  
-- Gestion fine des rôles et hiérarchie pour restreindre l’accès aux pages.  
-- Personnalisation des pages d’erreur HTTP pour une meilleure UX et sécurité.  
-- Maîtrise de Symfony : `security.yaml`, `UserType`, `SecurityController`, Twig et commandes `make:*`.  
-- Audit des dépendances Composer pour sécuriser l’application.
+Ce projet m’a permis de mieux comprendre la mise en place d’une authentification sécurisée et la protection contre les attaques CSRF. J’ai appris à gérer les rôles et leur hiérarchie pour limiter l’accès aux pages sensibles. La personnalisation des pages d’erreur HTTP m’a aussi aidé à améliorer l’expérience utilisateur tout en renforçant la sécurité. J’ai gagné en maîtrise du framework Symfony, notamment sur les fichiers security.yaml, les formulaires UserType, le SecurityController, Twig et les commandes make:*. Enfin, j’ai découvert comment auditer les dépendances avec Composer afin de vérifier les vulnérabilités et sécuriser davantage l’application.
 
 ## Remarques complémentaires
 - Le projet a permis de comprendre l’intégration de la sécurité dans Symfony et l’importance de la bonne configuration des rôles et des firewalls.
